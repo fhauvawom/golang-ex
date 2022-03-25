@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	instana "github.com/instana/go-sensor"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -25,6 +26,10 @@ func listenAndServe(port string) {
 }
 
 func main() {
+	instana.InitSensor(&instana.Options{
+          EnableAutoProfile: true,
+          // ... other options
+        })
 	http.HandleFunc("/", helloHandler)
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
