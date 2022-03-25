@@ -26,10 +26,7 @@ func listenAndServe(port string) {
 }
 
 func main() {
-	instana.InitSensor(&instana.Options{
-          EnableAutoProfile: true,
-          // ... other options
-        })
+	instana.InitSensor(instana.DefaultOptions())
 	http.HandleFunc("/", helloHandler)
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
