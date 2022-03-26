@@ -15,7 +15,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	// as a parent for any operation resulted from an incoming HTTP request. Here we're checking
 	// whether the parent span present in request context, which means that our handler has been
 	// instrumented.
-	if parent, ok := instana.SpanFromContext(req.Context()); ok {
+	if parent, ok := instana.SpanFromContext(r.Context()); ok {
 		// Since our handler does some substantial "work", we'd like to have more visibility
 		// on how much time it takes to process a request. For this we're starting an _intermediate_
 		// span that will be finished as soon as handling is finished.
