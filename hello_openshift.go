@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"context"
 	instana "github.com/instana/go-sensor"
 	"github.com/opentracing/opentracing-go"
 )
@@ -19,7 +20,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 		// Since our handler does some substantial "work", we'd like to have more visibility
 		// on how much time it takes to process a request. For this we're starting an _intermediate_
 		// span that will be finished as soon as handling is finished.
-		span = parent.Tracer().StartSpan("handle", opentracing.ChildOf(parent.Context()))
+		span = parent.Tracer().StartSpan("helloHandler", opentracing.ChildOf(parent.Context()))
 		defer span.Finish()
 	}
 	response := os.Getenv("RESPONSE")
@@ -42,7 +43,7 @@ func listenAndServe(port string) {
 func main() {
 	instana.InitSensor(instana.DefaultOptions())
 	
-	sensor := instana.NewSensor("my-http-server")
+	sensor := instana.NewSensor("golang-ex")
 	
 	http.HandleFunc("/", instana.TracingHandlerFunc(sensor, "/", helloHandler))
 	
