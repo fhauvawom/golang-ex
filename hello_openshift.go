@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"context"
 	instana "github.com/instana/go-sensor"
 	"github.com/opentracing/opentracing-go"
 )
