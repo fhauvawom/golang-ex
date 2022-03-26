@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	instana "github.com/instana/go-sensor"
+	"github.com/opentracing/opentracing-go"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
